@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="nguyenvanhuynh_k22cntt3_2210900031Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="255" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="CreatedAt" Type="date" />
+    <Property Name="UpdateAt" Type="date" />
+    <Property Name="Permission" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Guest">
+    <Key>
+      <PropertyRef Name="GuestID" />
+    </Key>
+    <Property Name="GuestID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SessionID" Type="nvarchar" MaxLength="255" />
+    <Property Name="VisitTime" Type="datetime" />
+    <Property Name="VisitProduct" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="255" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="255" />
+    <Property Name="Adderss" Type="nvarchar" MaxLength="255" />
+    <Property Name="CreatedAt" Type="date" />
+    <Property Name="UpdateAt" Type="date" />
+    <Property Name="Role" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="MemberID" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductID" Type="nvarchar" MaxLength="255" />
+    <Property Name="Quantity" Type="nvarchar" MaxLength="255" />
+    <Property Name="TotalPrice" Type="nvarchar" MaxLength="255" />
+    <Property Name="OrderDate" Type="date" />
+    <Property Name="Status" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="MemberID" Type="nvarchar" MaxLength="255" />
+    <Property Name="CategoryID" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="Price" Type="nvarchar" MaxLength="255" />
+    <Property Name="Condition" Type="nvarchar" MaxLength="255" />
+    <Property Name="ImageURl" Type="nvarchar" MaxLength="255" />
+    <Property Name="CreatedAt" Type="date" />
+    <Property Name="UpdateAt" Type="date" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="ReviewID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="MemberID" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductID" Type="nvarchar" MaxLength="255" />
+    <Property Name="Rating" Type="tinyint" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="255" />
+    <Property Name="CreatedAt" Type="date" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Order_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="ReviewID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="ReviewID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="nguyenvanhuynh_k22cntt3_2210900031ModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Order_Member" Association="Self.FK_Order_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Product" Association="Self.FK_Order_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Member" Association="Self.FK_Product_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Member" Association="Self.FK_Review_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Product" Association="Self.FK_Review_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

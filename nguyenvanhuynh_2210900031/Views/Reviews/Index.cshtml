@@ -1,0 +1,70 @@
+﻿@model IEnumerable<nguyenvanhuynh_2210900031.Models.Review>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.MemberID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Member.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.MemberID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReviewID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReviewID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReviewID })
+        </td>
+    </tr>
+}
+
+</table>

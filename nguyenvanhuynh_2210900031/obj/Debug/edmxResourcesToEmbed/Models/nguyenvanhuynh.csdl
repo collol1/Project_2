@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="nguyenvanhuynh_k22cntt3_2210900031Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+    <Property Name="UpdateAt" Type="DateTime" Precision="0" />
+    <Property Name="Permission" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Guest">
+    <Key>
+      <PropertyRef Name="GuestID" />
+    </Key>
+    <Property Name="GuestID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SessionID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="VisitTime" Type="DateTime" Precision="3" />
+    <Property Name="VisitProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Adderss" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+    <Property Name="UpdateAt" Type="DateTime" Precision="0" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Member" FromRole="Member" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Member" FromRole="Member" ToRole="Product" />
+    <NavigationProperty Name="Review" Relationship="Self.FK_Review_Member" FromRole="Member" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MemberID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TotalPrice" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="OrderDate" Type="DateTime" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_Order_Member" FromRole="Order" ToRole="Member" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Order_Product" FromRole="Order" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MemberID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Condition" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ImageURl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+    <Property Name="UpdateAt" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_Product_Member" FromRole="Product" ToRole="Member" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Product" FromRole="Product" ToRole="Order" />
+    <NavigationProperty Name="Review" Relationship="Self.FK_Review_Product" FromRole="Product" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="ReviewID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MemberID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Rating" Type="Byte" />
+    <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_Review_Member" FromRole="Review" ToRole="Member" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Review_Product" FromRole="Review" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Product_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="ReviewID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="ReviewID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="nguyenvanhuynh_k22cntt3_2210900031Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Guests" EntityType="Self.Guest" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Reviews" EntityType="Self.Review" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Member" Association="Self.FK_Order_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Member" Association="Self.FK_Product_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Member" Association="Self.FK_Review_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Product" Association="Self.FK_Order_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Product" Association="Self.FK_Review_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
